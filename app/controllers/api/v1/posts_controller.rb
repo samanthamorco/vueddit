@@ -4,4 +4,9 @@ class Api::V1::PostsController < ApplicationController
     @posts = Post.all.order(created_at: :desc)
     render 'index.json.jbuilder'
   end
+
+  def show
+    @post = Post.find(params[:id])
+    render 'show.json.jbuilder'
+  end
 end
