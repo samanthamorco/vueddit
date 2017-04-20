@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
+
+  Vue.component('post', {
+    template: '#post-template',
+    props: ['post']
+  })
   var app = new Vue({
     el: '#app',
     data: {
-      posts: [],
-      newPostTitle: '',
-      newPostBody: '',
+      posts: []
     },
     mounted: function() {
       $.get("/api/v1/posts.json", function(result) {

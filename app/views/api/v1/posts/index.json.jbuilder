@@ -4,4 +4,5 @@ json.array! @posts do |post|
   json.body post.body
   json.upvotes post.upvotes
   json.downvotes post.downvotes
+  json.username post.user.username
 end
