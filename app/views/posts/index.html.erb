@@ -1,3 +1,7 @@
 <div id="app">
-  {{ posts }}
+  <div v-for="post in posts">
+    {{ post.title }}
+    {{ post.body }}
+    {{ post.upvotes - post.downvotes }}
+  </div>
 </div>
