@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       };
     },
     methods: {
+      // TODO: way to keep track of user has already upvoted/downvoted once after page refresh
       upvote: function() {
         this.upvoted = !this.upvoted;
         $.ajax({url: "/api/v1/posts/" + this.post.id + ".json",
@@ -26,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     },
     computed: {
+      // might be able to refactor this?
       votes: function() {
-
         if (this.upvoted) {
           return this.post.upvotes - this.post.downvotes + 1;
         } else if (this.downvoted) {
