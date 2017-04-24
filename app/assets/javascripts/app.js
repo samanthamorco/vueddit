@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     methods: {
       upvote: function() {
         this.upvoted = !this.upvoted;
+        // $.patch("/api/v1/posts" + this.post.id + ".json", {upvotes: this.post.upvotes + 1, downvotes: this.post.downvotes})
+        $.ajax({url: "/api/v1/posts/" + this.post.id + ".json",
+                data: {upvotes: this.post.upvotes + 1, downvotes: this.post.downvotes},
+                method: "patch"})
         this.downvoted = false;
       },
       downvote: function() {
@@ -25,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (this.upvoted) {
           return this.post.upvotes - this.post.downvotes + 1;
         } else if (this.downvoted) {
+          $.patch("/api/v1/posts" + this.post.id + ".json", {upvotes: this.post.upvotes, downvotes: this.post.downvotes + 1})
           return this.post.upvotes - this.post.downvotes - 1;
         } else {
           return this.post.upvotes - this.post.downvotes;

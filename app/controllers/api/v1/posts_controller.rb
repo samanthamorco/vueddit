@@ -9,4 +9,10 @@ class Api::V1::PostsController < ApplicationController
     @post = Post.find(params[:id])
     render 'show.json.jbuilder'
   end
+
+  def update
+    @post = Post.find(params[:id])
+    @post.update(upvotes: params[:upvotes], downvotes: params[:downvotes])
+    render 'show.json.jbuilder'
+  end
 end
