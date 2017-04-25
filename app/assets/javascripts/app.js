@@ -38,6 +38,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 data: {upvotes: this.post.upvotes, downvotes: this.post.downvotes + 1},
                 method: "patch"});
         this.upvoted = false;
+      },
+      goToUrl: function(url) {
+        console.log("go");
+        console.log("url");
+        window.location.href = url;
       }
     },
     computed: {
@@ -82,14 +87,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     methods: {
       postComment: function() {
         var postNumber = window.location.href.replace(window.location.origin + '/posts/', '')
-        console.log(this.posts);
-        var posts = this.posts;
-        console.log('posting...');
-        // $.ajax({url: "/api/v1/posts/" + postNumber + "/comments.json", method: "post", data: {body: this.comment}}).then(function(response) {
-        //   console.log("posted!");
-        //   console.log(posts);
-        //   posts.push(response.data);
-        // })
         $.post("/api/v1/posts/" + postNumber + "/comments.json", {body: this.comment}, function(result) {
             this.posts.push(result);
             this.comment = '';
