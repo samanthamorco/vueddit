@@ -3,20 +3,4 @@
   <post v-for="post in posts" :post="post" :key="post.id"></post>
 </div>
 
-<!-- Vue templates -->
-<template id="post-template">
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 vote-arrows">
-        <i class="glyphicon glyphicon-chevron-up" @click="upvote"></i>
-        <span class="label label-primary">{{ votes }}</span>
-        <i class="glyphicon glyphicon-chevron-down" @click="downvote"></i>
-      </div>
-      <div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.body }}</p>
-        <p>By: {{ post.username }}</p>
-      </div>
-    </div>
-  </li>
-</template>
+<%= render "templates/post-template", upvote: "upvote", downvote: "downvote" %>
