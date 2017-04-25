@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
+  rescue_from ActiveRecord::RecordNotFound, with: :back_to_root
 
   def new
     @post = Post.new
@@ -25,5 +26,10 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body)
+  end
+
+  def back_to_root
+    flash[:warning] = "Post does not exist!"
+    redirect_to root_path
   end
 end

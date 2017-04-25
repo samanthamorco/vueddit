@@ -24,6 +24,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 data: {upvotes: this.post.upvotes, downvotes: this.post.downvotes + 1},
                 method: "patch"});
         this.upvoted = false;
+      },
+      upvoteComment: function() {
+        this.upvoted = !this.upvoted;
+        $.ajax({url: "/api/v1/comments/" + this.post.id + ".json",
+                data: {upvotes: this.post.upvotes + 1, downvotes: this.post.downvotes},
+                method: "patch"});
+        this.downvoted = false;
+      },
+      downvoteComment: function() {
+        this.downvoted = !this.downvoted;
+        $.ajax({url: "/api/v1/comments/" + this.post.id + ".json",
+                data: {upvotes: this.post.upvotes, downvotes: this.post.downvotes + 1},
+                method: "patch"});
+        this.upvoted = false;
       }
     },
     computed: {
@@ -52,4 +66,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }.bind(this));
     }, 
   });
+
+  var app2 = new Vue({
+    el: '#app2',
+    data: {
+      posts: []
+    },
+    mounted: function() {
+      var url = window.location.href.replace(window.location.origin + '/posts/', '')
+      $.get("/api/v1/posts/" + url + "/comments.json", function(result) {
+        this.posts = result
+      }.bind(this));
+    }, 
+  });
+
 });

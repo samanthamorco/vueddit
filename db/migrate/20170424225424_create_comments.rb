@@ -3,8 +3,9 @@ class CreateComments < ActiveRecord::Migration[5.0]
     create_table :comments do |t|
       t.string :body
       t.integer :user_id
-      t.integer :upvotes
-      t.integer :downvotes
+      t.integer :post_id
+      t.integer :upvotes, default: 0
+      t.integer :downvotes, default: 0
 
       t.timestamps
     end
