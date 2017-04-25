@@ -16,6 +16,9 @@
 <div class="comments-container container">
   <div id="app2">
     <post v-for="post in posts" :post="post" :key="post.id"></post>
+
+    <input type="text" placeholder="Enter a comment!" v-model="comment" @keyup.enter="postComment">
+    <button class="btn btn-primary" type="button" @click="postComment">Sumbit</button>
   </div>
 </div>
 

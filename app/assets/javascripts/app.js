@@ -70,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var app2 = new Vue({
     el: '#app2',
     data: {
-      posts: []
+      posts: [],
+      comment: ""
     },
     mounted: function() {
       var url = window.location.href.replace(window.location.origin + '/posts/', '')
@@ -78,6 +79,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.posts = result
       }.bind(this));
     }, 
+    methods: {
+      postComment: function() {
+        var postNumber = window.location.href.replace(window.location.origin + '/posts/', '')
+        console.log(this.posts);
+        var posts = this.posts;
+        console.log('posting...');
+        // $.ajax({url: "/api/v1/posts/" + postNumber + "/comments.json", method: "post", data: {body: this.comment}}).then(function(response) {
+        //   console.log("posted!");
+        //   console.log(posts);
+        //   posts.push(response.data);
+        // })
+        $.post("/api/v1/posts/" + postNumber + "/comments.json", {body: this.comment}, function(result) {
+            this.posts.push(result);
+            this.comment = '';
+          }.bind(this)).fail(function(response) {
+            this.errors = response.responseJSON.errors;
+          }.bind(this));
+      }
+    }
   });
 
 });
